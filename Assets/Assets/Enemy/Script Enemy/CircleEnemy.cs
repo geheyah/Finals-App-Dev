@@ -41,8 +41,9 @@ public class CircleEnemy : UnitEnemy
     public void TakeDamage(int damage)
     {
         maxHealth -= damage;
-        if(maxHealth <= 0)
+        if(maxHealth <= 0 && !isDestroyed)
         {
+            isDestroyed = true;
             EnemyDestory();
         }
     }

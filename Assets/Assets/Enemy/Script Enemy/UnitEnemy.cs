@@ -12,4 +12,5 @@ public class UnitEnemy : MonoBehaviour
 
     [HideInInspector] public Transform target;
     [HideInInspector] public int wavePointIndex = 0;
+    [HideInInspector] public bool isDestroyed = false;
 }
