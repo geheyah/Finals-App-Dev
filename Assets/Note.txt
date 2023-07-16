@@ -1,0 +1,9 @@
+All Scripts will be designated on each folder.
+
+Example:
+Enemy Scripts will be located on Enemy Folder
+Player Script will be located on Player Folder
+
+I did this in order for the Scripts file to be safe and not Packed on one Folder (Which may accidentally delete And all Scripts are gone)
+
+
