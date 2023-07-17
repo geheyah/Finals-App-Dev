@@ -1,3 +1,4 @@
+using Kino;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -36,6 +37,7 @@ public class CircleEnemy : UnitEnemy
     {
         EnemySpawner.onEnemyDestory.Invoke();
         Destroy(gameObject);
+        HealthManager.health--;
     }
 
     public void TakeDamage(int damage)
