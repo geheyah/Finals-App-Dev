@@ -8,7 +8,7 @@ public class HealthManager : MonoBehaviour
 {
     [Header("Game Manager Script")]
     [SerializeField] GameManager gameManager;
-    public static int health = 3;
+    public static int health = 5;
 
     [Header("Glitch Effect")]
     [SerializeField] DigitalGlitch digitalGlitch;

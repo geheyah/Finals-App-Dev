@@ -11,6 +11,9 @@ public class UnitEnemy : MonoBehaviour
     [Range(10, 100)]
     public int maxHealth;
 
+    [Header("Money Worth")]
+    public int moneyWorth;
+
     [HideInInspector] public Transform target;
     [HideInInspector] public int wavePointIndex = 0;
     [HideInInspector] public bool isDestroyed = false;

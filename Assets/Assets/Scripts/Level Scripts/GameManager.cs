@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
 
     private void MainMenu()
     {
-        HealthManager.health = 3;
+        HealthManager.health = 5;
         loadingManager.LoadScene(scenName);
     }
 }

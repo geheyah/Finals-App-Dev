@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class CircleEnemy : UnitEnemy
 {
+
     private void Start()
     {
         target = Waypoints.enemyWayPoints[0];
@@ -54,6 +55,7 @@ public class CircleEnemy : UnitEnemy
     {
         EnemySpawner.onEnemyDestory.Invoke();
         Destroy(gameObject);
+        CurrencyManager.CM.AddMoney(moneyWorth);
     }
 
 }

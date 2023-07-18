@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class TilesTurret : MonoBehaviour
@@ -8,7 +9,7 @@ public class TilesTurret : MonoBehaviour
     [Header("References")]
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private Color hoverColor;
-    //[SerializeField] private Color buildColor;
+    [SerializeField] private TextMeshProUGUI announceToPlayerUI;
 
     private GameObject turrets;
     private Color startColor;
@@ -35,8 +36,17 @@ public class TilesTurret : MonoBehaviour
             return;
         }
 
-        GameObject turretBuild = BuildManager.buildManager.SelectedTurret();
-        turrets = Instantiate(turretBuild, transform.position, Quaternion.identity);
+        Tower turretBuild = BuildManager.buildManager.SelectedTurret();
+
+        if (turretBuild.cost > CurrencyManager.CM.startingMoney)
+        {
+            announceToPlayerUI.text = "Not Enough Money";
+            return;
+        }
+
+        CurrencyManager.CM.MinusMoney(turretBuild.cost);
+
+        turrets = Instantiate(turretBuild.prefabs, transform.position, Quaternion.identity);
     }
 
 

@@ -81,10 +81,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   turretRange: 2
-  turretRotationSpeed: 500
+  turretRotationSpeed: 400
   spawnBullet: {fileID: 4713833873183754757}
   bulletPrefab: {fileID: 2904435405797925759, guid: c4fe1f63fe8670849910df0ffed02949, type: 3}
-  fireRate: 25
+  fireRate: 5
 --- !u!1 &8584852698642995114
 GameObject:
   m_ObjectHideFlags: 0
