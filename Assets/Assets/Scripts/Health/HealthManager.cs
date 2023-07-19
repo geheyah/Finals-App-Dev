@@ -28,7 +28,6 @@ public class HealthManager : MonoBehaviour
         for(int i = 0; i < health; i++)
         {
             hearts[i].sprite = fullHeart;
-            digitalGlitch.intensity = 0f;
         }
 
         PlayerTakingDMG();
@@ -38,7 +37,7 @@ public class HealthManager : MonoBehaviour
     {
         if(health <= 0)
         {
-            digitalGlitch.intensity=0.5f;
+            digitalGlitch.intensity = 0.5f;
             gameManager.EndGame();
         }
     }

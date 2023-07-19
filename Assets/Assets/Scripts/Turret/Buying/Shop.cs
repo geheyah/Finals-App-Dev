@@ -13,9 +13,4 @@ public class Shop : MonoBehaviour
         moneyUI.text = CurrencyManager.CM.startingMoney.ToString();
 
     }
-
-    private void SetTurret()
-    {
-
-    }
 }

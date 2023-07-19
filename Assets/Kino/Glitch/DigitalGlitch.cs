@@ -32,7 +32,7 @@ namespace Kino
         #region Public Properties
 
         [SerializeField, Range(0, 1)]
-        public float _intensity = 0;
+        float _intensity = 0;
 
         public float intensity {
             get { return _intensity; }

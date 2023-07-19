@@ -10,6 +10,7 @@ public class TilesTurret : MonoBehaviour
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private Color hoverColor;
     [SerializeField] private TextMeshProUGUI announceToPlayerUI;
+    [SerializeField] private EnemySpawner enemySpawner;
 
     private GameObject turrets;
     private Color startColor;
@@ -31,7 +32,12 @@ public class TilesTurret : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if(turrets != null)
+        BuildTurret();
+    }
+
+    private void BuildTurret()
+    {
+        if (turrets != null)
         {
             return;
         }
@@ -40,13 +46,20 @@ public class TilesTurret : MonoBehaviour
 
         if (turretBuild.cost > CurrencyManager.CM.startingMoney)
         {
-            announceToPlayerUI.text = "Not Enough Money";
+            StartCoroutine(NotifToPlayer());
             return;
         }
 
         CurrencyManager.CM.MinusMoney(turretBuild.cost);
 
         turrets = Instantiate(turretBuild.prefabs, transform.position, Quaternion.identity);
+    }
+
+    IEnumerator NotifToPlayer()
+    {
+        announceToPlayerUI.text = "Not Enough Money";
+        yield return new WaitForSeconds(1.5f);
+        announceToPlayerUI.text = " ";
     }
 
 

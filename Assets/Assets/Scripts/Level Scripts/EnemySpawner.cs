@@ -1,5 +1,7 @@
+using Kino;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -15,25 +17,41 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private int enemiesSpawn;
     [Header("Spawn per Second")]
     [SerializeField] private float spawnPerSec;
+    [SerializeField] private float spawnPerSecMultipleEnemeis;
     [Header("Time before Next Wave")]
-    [Range(1f, 5f)]
+    [Range(4f, 6f)]
+    [SerializeField] private float startWaveIn;
+
+    [Header("Glitch Effect")]
+    [SerializeField] DigitalGlitch digitalGlitch;
+
+    [HideInInspector]
     [SerializeField] private float nextWaveIn;
+
     [Header("Scaling Factor")]
     [Range(0.1f , 1f)]
     [SerializeField] private float difficultyFactor;
 
     [Header("References")]
+    [SerializeField] private TextMeshProUGUI waveLevel;
+    [SerializeField] private TextMeshProUGUI timerText;
     [SerializeField] private GameObject[] enemyPrefabs;
 
-    private int currentWave = 1;
+    private int currentWave = 0;
     private float timeSincelastSpawn;
     private int aliveEnemies;
+    private float enemiesPerS;
     private int enemiesLeftForSpawn;
     private bool isSpawning = false;
 
     private void Awake()
     {
         onEnemyDestory.AddListener(DestroyedEnemy);
+    }
+
+    private void OnGUI()
+    {
+        waveLevel.text = currentWave.ToString();
     }
 
     private void Start()
@@ -43,6 +61,8 @@ public class EnemySpawner : MonoBehaviour
 
     private void Update()
     {
+        Timer();
+
         if (!isSpawning)
         {
             return;
@@ -50,7 +70,7 @@ public class EnemySpawner : MonoBehaviour
 
         timeSincelastSpawn += Time.deltaTime;
 
-        if(timeSincelastSpawn >= (1f / spawnPerSec) && enemiesLeftForSpawn > 0) 
+        if(timeSincelastSpawn >= (1f / enemiesPerS) && enemiesLeftForSpawn > 0) 
         {
             SpawnEnemy();
             enemiesLeftForSpawn--;
@@ -64,11 +84,38 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
+    private void Timer()
+    {
+        if(nextWaveIn > 0)
+        {
+            nextWaveIn -= Time.deltaTime;
+
+        }
+        else
+        {
+            nextWaveIn = 0;
+        }
+        DisplayTime(nextWaveIn);
+    }
+
+    private void DisplayTime(float timeToDisplay)
+    {
+        if(timeToDisplay < 0)
+        {
+            timeToDisplay = 0;
+        }
+
+        float seconds = Mathf.FloorToInt(timeToDisplay % 60);
+        timerText.text = string.Format("{0}",seconds);
+
+    }
+
     private IEnumerator StartWave()
     {
         yield return new WaitForSeconds(nextWaveIn);
         isSpawning = true;
         enemiesLeftForSpawn = EnemyPerWave();
+        enemiesPerS = EnemyPerSecond();
 
     }
 
@@ -77,9 +124,25 @@ public class EnemySpawner : MonoBehaviour
         return Mathf.RoundToInt(enemiesSpawn * Mathf.Pow(currentWave, difficultyFactor));
     }
 
+    private float EnemyPerSecond()
+    {
+        return Mathf.Clamp(spawnPerSec * Mathf.Pow(currentWave, 
+            difficultyFactor),0,spawnPerSecMultipleEnemeis);
+    }
+
     private void SpawnEnemy()
     {
-        Instantiate(enemyPrefabs[0], enemySpawnPoint.position, Quaternion.identity);
+        if(currentWave <= 3)
+        {
+            Instantiate(enemyPrefabs[0], enemySpawnPoint.position, Quaternion.identity);
+        }
+
+        if(currentWave >= 3)
+        {
+            int index = Random.Range(0, enemyPrefabs.Length);
+            Instantiate(enemyPrefabs[index], enemySpawnPoint.position, Quaternion.identity);
+            digitalGlitch.intensity = 0.001f;
+        }
     }
 
     public void DestroyedEnemy()
@@ -92,10 +155,7 @@ public class EnemySpawner : MonoBehaviour
         isSpawning = false;
         timeSincelastSpawn = 0f;
         currentWave++;
+        nextWaveIn = startWaveIn;
         StartCoroutine(StartWave());
     }
-
-
-
-
 }

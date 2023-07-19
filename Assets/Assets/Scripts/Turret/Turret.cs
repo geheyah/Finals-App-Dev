@@ -15,6 +15,8 @@ public class Turret : MonoBehaviour
     [SerializeField] private Transform spawnBullet;
     [Header("Bullet")]
     [SerializeField] private GameObject bulletPrefab;
+    [Header("Firing SFX")]
+    [SerializeField] private AudioSource blasterClip;
 
     [Header("Use Bullets (default)")]
     public float fireRate;
@@ -69,6 +71,7 @@ public class Turret : MonoBehaviour
 
     void Shoot()
     {
+        blasterClip.Play();
         GameObject bulletGO = (GameObject)Instantiate(bulletPrefab, spawnBullet.position, spawnBullet.rotation);
         Bullet bullet = bulletGO.GetComponent<Bullet>();
 
