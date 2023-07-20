@@ -8,7 +8,7 @@ public class UnitEnemy : MonoBehaviour
     [Range(1f, 50f)]
     public float moveSpeed;
 
-    [Range(10, 100)]
+    [Range(10, 500)]
     public int maxHealth;
 
     [Header("Money Worth")]

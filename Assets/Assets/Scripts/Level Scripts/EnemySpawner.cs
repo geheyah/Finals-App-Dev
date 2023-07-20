@@ -22,9 +22,6 @@ public class EnemySpawner : MonoBehaviour
     [Range(4f, 6f)]
     [SerializeField] private float startWaveIn;
 
-    [Header("Glitch Effect")]
-    [SerializeField] DigitalGlitch digitalGlitch;
-
     [HideInInspector]
     [SerializeField] private float nextWaveIn;
 
@@ -132,17 +129,8 @@ public class EnemySpawner : MonoBehaviour
 
     private void SpawnEnemy()
     {
-        if(currentWave <= 3)
-        {
-            Instantiate(enemyPrefabs[0], enemySpawnPoint.position, Quaternion.identity);
-        }
-
-        if(currentWave >= 3)
-        {
-            int index = Random.Range(0, enemyPrefabs.Length);
-            Instantiate(enemyPrefabs[index], enemySpawnPoint.position, Quaternion.identity);
-            digitalGlitch.intensity = 0.001f;
-        }
+        int index = Random.Range(0, enemyPrefabs.Length);
+        Instantiate(enemyPrefabs[index], enemySpawnPoint.position, Quaternion.identity);
     }
 
     public void DestroyedEnemy()
