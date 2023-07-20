@@ -8,8 +8,22 @@ public class GameManager : MonoBehaviour
     bool gameHadEnded = false;
 
     [SerializeField] LoadingManager loadingManager;
-    [SerializeField] string scenName;
+    [SerializeField] string sceneName;
     [SerializeField] float exitDelay;
+
+    public GameObject levelCompleteUI;
+
+    public void CompleteLevel()
+    {
+        StartCoroutine(LoadSceneCompleteLevel());
+    }
+
+    IEnumerator LoadSceneCompleteLevel()
+    {
+        levelCompleteUI.SetActive(true);
+        yield return new WaitForSeconds(3);
+        loadingManager.LoadScene(sceneName);
+    }
 
     public void EndGame()
     {
@@ -24,6 +38,6 @@ public class GameManager : MonoBehaviour
     private void MainMenu()
     {
         HealthManager.health = 5;
-        loadingManager.LoadScene(scenName);
+        loadingManager.LoadScene(sceneName);
     }
 }

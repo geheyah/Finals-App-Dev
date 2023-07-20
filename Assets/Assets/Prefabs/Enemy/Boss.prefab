@@ -156,8 +156,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 1
-  maxHealth: 500
-  moneyWorth: 100
+  maxHealth: 400
+  moneyWorth: 150
   target: {fileID: 0}
   wavePointIndex: 0
   isDestroyed: 0

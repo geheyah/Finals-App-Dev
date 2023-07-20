@@ -85,10 +85,4 @@ public class Turret : MonoBehaviour
     {
         return Vector2.Distance(target.position, transform.position) <= turretRange;
     }
-
-    private void OnDrawGizmosSelected()
-    {
-        Handles.color = Color.white;
-        Handles.DrawWireDisc(transform.position, transform.forward, turretRange);
-    }
 }
